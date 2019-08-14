@@ -195,25 +195,24 @@ Container model
 
 | HTTP Method | URL                         | Request Body                 | Success status | Error Status | Description                                                  |
 | ----------- | --------------------------- | ---------------------------- | -------------- | ------------ | ------------------------------------------------------------ |
-| GET         | `/auth/profile    `           | Saved session                | 200            | 404          | Check if user is logged in and return profile page           |
-| POST        | `/auth/signup`                | {name, email, password}      | 201            | 404          | Checks if fields not empty (422) and user not exists (409), then create user with encrypted password, and store user in session |
-| POST        | `/auth/login`                 | {username, password}         | 200            | 401          | Checks if fields not empty (422), if user exists (404), and if password matches (404), then stores user in session |
-| POST        | `/auth/logout`                | (empty)                      | 204            | 400          | Logs out the user                                            |
-| GET         | `/tournaments`                |                              |                | 400          | Show all tournaments                                         |
-| GET         | `/tournaments/:id`            | {id}                         |                |              | Show specific tournament                                     |
-| POST        | `/tournaments/add-tournament` | {}                           | 201            | 400          | Create and save a new tournament                             |
-| PUT         | `/tournaments/edit/:id`       | {name,img,players}           | 200            | 400          | edit tournament                                              |
-| DELETE      | `/tournaments/delete/:id`     | {id}                         | 201            | 400          | delete tournament                                            |
-| GET         | `/players`                    |                              |                | 400          | show players                                                 |
-| GET         | `/players/:id`                | {id}                         |                |              | show specific player                                         |
-| POST        | `/players/add-player`         | {name,img,tournamentId}      | 200            | 404          | add player                                                   |
-| PUT         | `/players/edit/:id`           | {name,img}                   | 201            | 400          | edit player                                                  |
-| DELETE      | `/players/delete/:id`         | {id}                         | 200            | 400          | delete player                                                |
-| GET         | `/games`                      | {}                           | 201            | 400          | show games                                                   |
-| GET         | `/games/:id`                  | {id,tournamentId}            |                |              | show specific game                                           |
-| POST        | `/games/add-game`             | {player1,player2,winner,img} |                |              | add game                                                     |
-| POST        | `/games/add-all-games`        |                              |                |              | add all games from a tournament. Gets a list of players and populates them via algorithm. |
-| PUT         | `/games/edit/:id`             | {winner,score}               |                |              | edit game                                                    |
+| GET         | `/auth/login    `           | Saved session                | 200            | 404          | Check if user is logged in and return profile page           |
+| POST        | `/auth/login`                | {name, email, password}      | 201            | 404          | Checks if fields not empty (422) and user not exists (409), then create user with encrypted password, and store user in session |
+| GET        | `/admin`                 | Current session is Adm | 200            | 401          | Check if the list of Containers is avaiable |
+| GET        | `/admin/auth/signup`                | (empty)                      | 204            | 400          | The admin fill spaces with data of new client  |
+| POST         | `/admin/auth/signup`                |                              |                | 400          | The admin create a new user |
+| GET         | `/admin/clientslist`            |                       |                |              | Show the list of clients |
+| GET        | `/client` |                            | 201            | 400          | Show the list of current containers |
+| POST         | `/client`       |         | 200            | 400          | Check if the client want to edit or make some action to current containers or create a new one  |
+| GET      | `/client/request`     | {id}                         | 201            | 400          | Show sapces to fill   |
+| POST         | `/client/request`                    |                              |                | 400          | Create a new container request |
+| GET         | `/container/:id`                | {id}                         |                |              | Show the details of the container |
+| GET        | `/client/profile/edit`         |       | 200            | 404          | Edit the profile of the client  |
+| POST         | `/client/profile/edit`           | {name,img}                   | 201            | 400          | Take the news of the user |
+| GET      | `/client/profile`         | {id}                         | 200            | 400          | Show the done containers |
+| GET         | `/transporter`                      | {}                           | 201            | 400          | Show the pending tasks of the transporter |
+| POST        | `/transporter`                  | {id,tournamentId}            |                |              | Check if the transporter want to complete some task |
+| GET        | `/transporter/profile`             | {player1,player2,winner,img} |                |              | Show the tasks done of the transporter|
+
 
 
 <br>
