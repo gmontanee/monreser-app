@@ -45,87 +45,77 @@ Esta es una aplicacion orientada a la gestion de contenedores. Los clientes pued
 ## Routes (React App)
 | Path                      | Component            | Permissions | Behavior                                                     |
 | ------------------------- | -------------------- | ----------- | ------------------------------------------------------------ |
-| ### Admin                       |           |       |                                        |
-| `/auth/signup`            | SignupPage           | anon only   | Signup form, link to login, navigate to homepage after signup |
-| `/auth/login`             | LoginPage            | anon only   | Login form, link to signup, navigate to homepage after login |
-| `/auth/logout`            | n/a                  | anon only   | Navigate to homepage after logout, expire session            |
-| `/tournaments`            | TournamentListPage   | user only   | Shows all tournaments in a list                              |
-| `/tournaments/add`        | TournamentListPage   | user only   | Edits a tournament                                           |
-| `/tournaments/:id`        | TournamentDetailPage | user only   | Details of a tournament to edit                              |
-| `/tournament/:id`         | n/a                   | user only   | Delete tournament                                            |
-| `/tournament/players`     | PlayersListPage      | user only   | List of players of a tournament                              |
-| `/tournament/players/add` | PlayersListPage      | user only   | Add a player to the tournament                               |
-| `/tournament/players/:id` | PlayersDetailPage    | user only   | Edit player for tournament                                   |
-| `/tournament/players/:id` | PlayersListPage      | user only   | Delete player from tournament                                |
-| `/tournament/tableview`   | TableView            | user only   | Games view and brackets                                      |
-| `/tournament/ranks`       | RanksPage            | user only   | Ranks list                                                   |
-| `/tournament/game`        | GameDetailPage       | user only   | Game details                                                  |
-| `/tournament/game`        | Game                 | user only   |                                                              |
-| `/`                       | SplashPage           | public      | Home page                                        |
-| `/`                       | SplashPage           | public      | Home page                                        |
-| `/`                       | SplashPage           | public      | Home page                                        |
-| `/`                       | SplashPage           | public      | Home page                                        |
-| `/`                       | SplashPage           | public      | Home page                                        |
-| `/`                       | SplashPage           | public      | Home page                                        |
-| `/`                       | SplashPage           | public      | Home page                                        |
-| `/`                       | SplashPage           | public      | Home page                                        |
-| `/`                       | SplashPage           | public      | Home page                                        |
+| `/auth/login`                       | LoginPage           | public      | In this page the users can login     |
+|    Admin                       |           |       |                                        |
+| `/admin`             | Admin HomePage    | admin only   | Is the admin home page, here are the list of rquests |
+| `/admin/auth/signup`            | SignupPage           | admin only | Admin can add a new Client User |
+| `/admin/clientslist`             | Clients List Page | admin only   | Admin can see all the clients |
+| Client            |    |   |                               |
+| `/client`        | HomePage   | client only   |  Can see all current containers  |
+| `/client/request`        | Request Container Page | client only   | Request a new container |
+| `/container/:id`         | Container page  | client only   | Can edit container features and request pick up |
+| `/client/profile`     | Client Profile Page      | client only   | Hisotry of containers and options to edit|
+| `/client/profiles/edit` | Edit Client Page      | client only   | Modify data  |
+| Transporter |     |       |                                           |
+| `/transporter` | Transportes Home Page      | transporter only   |  See all the pending tasks |
+| `/transporter/profile`   | Transportes Profile Page            | transporter only   | All the containers served and active  |
 
 
 ## Components
 
 - LoginPage
 
-- SplashPage
+- Admin Homepage
 
-- TournamentListPage
+- Admin List Clients
 
-- Tournament Cell
+- Admin Signup client
 
-- TournamentDetailPage
+- Client Homepage
 
-- TableViewPage
+- Client New Rquest
 
-- PlayersListPage
+- Container Details
 
-- PlayerDetailPage
+- Client Profile
 
-- RanksPage
+- Client Edit
 
-- TournamentDetailPageOutput
+- Transporter Homepage
+
+- Transporter Profile
 
 - Navbar
-
-
-  
-
  
 
 ## Services
 
-- Auth Service
-  - auth.login(user)
-  - auth.signup(user)
-  - auth.logout()
-  - auth.me()
-  - auth.getUser() // synchronous
-- Tournament Service
-  - tournament.list()
-  - tournament.detail(id)
-  - tournament.add(id)
-  - tournament.delete(id)
-  
-- Player Service 
+- Auth
+  - auth.login
+  - auth.signup
+  - auth.logout
+  - auth.me
 
-  - player.detail(id)
-  - player.add(id)
-  - player.delete(id)
+- Admin
+  - admin.acceptRequest
+  - admin.list
+  - admin.detailContainer
+  - admin.detailClient
+  - admin.detailTransporter
 
-- Game Service
+- Client
+  - client.newContainer
+  - client.requestPickUp
+  - client.edirProfile
 
-  - Game.put(id)
+- Transporter
+  - transporter.taskList
+  - transporter.deliveredContainer
+  - transporter.takenContainer
 
-
+- Container
+  - container.edit
+  - container.archived
 
 <br>
 
@@ -135,53 +125,65 @@ Esta es una aplicacion orientada a la gestion de contenedores. Los clientes pued
 
 ## Models
 
-User model
+Admin model
 
 ```javascript
 {
   username: {type: String, required: true, unique: true},
-  email: {type: String, required: true, unique: true},
   password: {type: String, required: true},
-  favorites: [Tournament]
+  clients: [{type: ObjectId}],
+  containersRequest: [{type: ObjectId}],
+  archivedContainers: [{type: ObjectId}],
 }
 ```
 
 
 
-Tournament model
+Client model
 
 ```javascript
  {
    name: {type: String, required: true},
+   password: {type: String, required: true},
    img: {type: String},
-   players: [{type: Schema.Types.ObjectId,ref:'Participant'}],
-   games: [{type: Schema.Types.ObjectId,ref:'Game'}]
+   email: {type: String, required: true},
+   telef: {type: String, required: true},
+   adress: {type: String, required: true},...
+   activeContainers: [{type: ObjectId, required: true}],
+   archivedContainers: [{type: ObjectId, required: true}],
+   activeContainers: [{type: ObjectId, required: true}],
  }
 ```
 
 
 
-Player model
+Transporter model
 
 ```javascript
 {
-  name: {type: String, required: true},
-  img: {type: String},
-  score: []
+   name: {type: String, required: true},
+   password: {type: String, required: true},
+   img: {type: String},
+   email: {type: String, required: true},
+   telef: {type: String, required: true},
+   adress: {type: String, required: true},...
+   requestedServices: [{type: ObjectId, required: true}],
+   activeContainers: [{type: ObjectId, required: true}],
+   archivedContainers: [{type: ObjectId, required: true}],
 }
 ```
 
 
 
-Game model
+Container model
 
 ```javascript
 {
-  player1: [{type: Schema.Types.ObjectId,ref:'Participant'}],
-  player2: [{type: Schema.Types.ObjectId,ref:'Player'}],
-  player2: [{type: Schema.Types.ObjectId,ref:'Player'}],
-  winner: {type: String},
-  img: {type: String}
+  name: {type: String, required: true},
+  place: {type: String, required: true},
+  content: {type: String, required: true},
+  capacity: {type: String, required: true},
+  img: {type: String, required: true},
 }
 ```
 
