@@ -33,9 +33,9 @@ Esta es una aplicacion orientada a la gestion de contenedores. Los clientes pued
 
 ## Backlog
 
--Geolocalizacion al lugar solicitado.
--Formulario con PDF para la hoja de seguimiento.
--Enviar notificaciones de estado a clients(Solicitud aceptada, contenedor recojido, residuo gestionado(con datos del servicio), ...)
+- Geolocalizacion al lugar solicitado.
+- Formulario con PDF para la hoja de seguimiento.
+- Enviar notificaciones de estado a clients(Solicitud aceptada, contenedor recojido, residuo gestionado(con datos del servicio), ...)
 
 <br>
 
@@ -45,7 +45,7 @@ Esta es una aplicacion orientada a la gestion de contenedores. Los clientes pued
 ## Routes (React App)
 | Path                      | Component            | Permissions | Behavior                                                     |
 | ------------------------- | -------------------- | ----------- | ------------------------------------------------------------ |
-| `/`                       | SplashPage           | public      | Home page                                        |
+| ### Admin                       |           |       |                                        |
 | `/auth/signup`            | SignupPage           | anon only   | Signup form, link to login, navigate to homepage after signup |
 | `/auth/login`             | LoginPage            | anon only   | Login form, link to signup, navigate to homepage after login |
 | `/auth/logout`            | n/a                  | anon only   | Navigate to homepage after logout, expire session            |
@@ -61,6 +61,15 @@ Esta es una aplicacion orientada a la gestion de contenedores. Los clientes pued
 | `/tournament/ranks`       | RanksPage            | user only   | Ranks list                                                   |
 | `/tournament/game`        | GameDetailPage       | user only   | Game details                                                  |
 | `/tournament/game`        | Game                 | user only   |                                                              |
+| `/`                       | SplashPage           | public      | Home page                                        |
+| `/`                       | SplashPage           | public      | Home page                                        |
+| `/`                       | SplashPage           | public      | Home page                                        |
+| `/`                       | SplashPage           | public      | Home page                                        |
+| `/`                       | SplashPage           | public      | Home page                                        |
+| `/`                       | SplashPage           | public      | Home page                                        |
+| `/`                       | SplashPage           | public      | Home page                                        |
+| `/`                       | SplashPage           | public      | Home page                                        |
+| `/`                       | SplashPage           | public      | Home page                                        |
 
 
 ## Components
